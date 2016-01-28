@@ -264,19 +264,20 @@
 }
 
 /**
- *  Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
+ *  Tests wether the operation correctly sends the "isCancelled" key value notification when used in a serial queue.
  */
 
-- (void) testCanCancelOperationWithConcurrentQueue {
+- (void) testCanCancelOperationWithSerialQueue {
     NSOperation         *testOperation  = nil;
     NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isCancelled";
     XCTestExpectation   *expectation    = nil;
     
-    queue           = [[self class] concurrentQueueWithName:NSStringFromSelector(_cmd)];
+    queue           = [[self class] serialQueueWithName:NSStringFromSelector(_cmd)];
     
     testOperation   = [self operationUnderTest];
-    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:@"isCancelled" handler:^BOOL(id observedObject, NSDictionary *change) {
-        return [[observedObject valueForKeyPath:@"isCancelled"] boolValue];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
     }];
     
     [queue setSuspended:YES];
@@ -292,19 +293,20 @@
 }
 
 /**
- *  Tests wether the operation correctly sends the "isCancelled" key value notification when used in a serial queue.
+ *  Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
  */
 
-- (void) testCanCancelOperationWithSerialQueue {
+- (void) testCanCancelOperationWithConcurrentQueue {
     NSOperation         *testOperation  = nil;
     NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isCancelled";
     XCTestExpectation   *expectation    = nil;
     
-    queue           = [[self class] serialQueueWithName:NSStringFromSelector(_cmd)];
+    queue           = [[self class] concurrentQueueWithName:NSStringFromSelector(_cmd)];
     
     testOperation   = [self operationUnderTest];
-    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:@"isCancelled" handler:^BOOL(id observedObject, NSDictionary *change) {
-        return [[observedObject valueForKeyPath:@"isCancelled"] boolValue];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
     }];
     
     [queue setSuspended:YES];
@@ -315,6 +317,118 @@
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"Operation did not move to the cancelled state within the timeout: %@", error);
+        }
+    }];
+}
+
+/**
+ *  Tests wether the operation correctly sends the "isFinished" key value notification when used in a serial queue.
+ */
+
+- (void) testOperationFinishesWithSerialQueue {
+    NSOperation         *testOperation  = nil;
+    NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isFinished";
+    XCTestExpectation   *expectation    = nil;
+    
+    queue           = [[self class] serialQueueWithName:NSStringFromSelector(_cmd)];
+    
+    testOperation   = [self operationUnderTest];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
+    }];
+    
+    [queue setSuspended:YES];
+    [queue addOperation:testOperation];
+    
+    [queue setSuspended:NO];
+    [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
+        if ([[error domain] isEqualToString:XCTestErrorDomain]){
+            XCTFail( @"Operation did not move to the finished state within the timeout: %@", error);
+        }
+    }];
+}
+
+/**
+ *  Tests wether the operation correctly sends the "isFinished" key value notification when used in a concurrent queue.
+ */
+
+- (void) testOperationFinishesWithConcurrentQueue {
+    NSOperation         *testOperation  = nil;
+    NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isFinished";
+    XCTestExpectation   *expectation    = nil;
+    
+    queue           = [[self class] concurrentQueueWithName:NSStringFromSelector(_cmd)];
+    
+    testOperation   = [self operationUnderTest];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
+    }];
+    
+    [queue setSuspended:YES];
+    [queue addOperation:testOperation];
+    
+    [queue setSuspended:NO];
+    [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
+        if ([[error domain] isEqualToString:XCTestErrorDomain]){
+            XCTFail( @"Operation did not move to the finished state within the timeout: %@", error);
+        }
+    }];
+}
+
+/**
+ *  Tests wether the operation correctly sends the "isExecuting" key value notification when used in a serial queue.
+ */
+
+- (void) testOperationExecutesWithSerialQueue {
+    NSOperation         *testOperation  = nil;
+    NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isExecuting";
+    XCTestExpectation   *expectation    = nil;
+    
+    queue           = [[self class] serialQueueWithName:NSStringFromSelector(_cmd)];
+    
+    testOperation   = [self operationUnderTest];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
+    }];
+    
+    [queue setSuspended:YES];
+    [queue addOperation:testOperation];
+    
+    [queue setSuspended:NO];
+    [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
+        if ([[error domain] isEqualToString:XCTestErrorDomain]){
+            XCTFail( @"Operation did not move to the executing state within the timeout: %@", error);
+        }
+    }];
+}
+
+/**
+ *  Tests wether the operation correctly sends the "isExecuting" key value notification when used in a concurrent queue.
+ */
+
+- (void) testOperationExecutesWithConcurrentQueue {
+    NSOperation         *testOperation  = nil;
+    NSOperationQueue    *queue          = nil;
+    NSString            *keyPath        = @"isExecuting";
+    XCTestExpectation   *expectation    = nil;
+    
+    queue           = [[self class] concurrentQueueWithName:NSStringFromSelector(_cmd)];
+    
+    testOperation   = [self operationUnderTest];
+    expectation     = [self keyValueObservingExpectationForObject:testOperation keyPath:keyPath handler:^BOOL(id observedObject, NSDictionary *change) {
+        return [[observedObject valueForKeyPath:keyPath] boolValue];
+    }];
+    
+    [queue setSuspended:YES];
+    [queue addOperation:testOperation];
+    
+    [queue setSuspended:NO];
+    [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
+        if ([[error domain] isEqualToString:XCTestErrorDomain]){
+            XCTFail( @"Operation did not move to the executing state within the timeout: %@", error);
         }
     }];
 }
