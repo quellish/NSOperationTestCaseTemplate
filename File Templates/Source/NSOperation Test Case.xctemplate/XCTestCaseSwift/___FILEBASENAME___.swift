@@ -216,13 +216,18 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     }
     
     /**
-      Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
-    */
+     Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
+     */
     
     func testCanCancelOperationWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
         let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
-        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: "isCancelled", expectedValue: true)
+        let keyPath:String                  = "isCancelled"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
         
         queue.suspended = true
         queue.addOperation(testOperation)
@@ -243,13 +248,18 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     }
     
     /**
-       Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
+     Tests wether the operation correctly sends the "isCancelled" key value notification when used in a concurrent queue.
      */
     
     func testCanCancelOperationWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
         let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
-        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: "isCancelled", expectedValue: true)
+        let keyPath:String                  = "isCancelled"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
         
         queue.suspended = true
         queue.addOperation(testOperation)
@@ -266,7 +276,131 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
             if (expectation != nil){
                 expectation = nil
             }
-
+            
+        }
+    }
+    
+    /**
+     Tests wether the operation correctly sends the "isFinished" key value notification when used in a serial queue.
+     */
+    
+    func testOperationFinishesWithSerialQueue() {
+        let testOperation:NSOperation       = self.operationUnderTest();
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
+        let keyPath:String                  = "isFinished"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
+        
+        queue.suspended = true
+        queue.addOperation(testOperation)
+        queue.suspended = false
+        
+        self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
+            if let testError = error {
+                if (testError.domain == XCTestErrorDomain){
+                    XCTFail( "Operation did not move to the finished state within the timeout: \(error)");
+                }
+            }
+            
+            if (expectation != nil){
+                expectation = nil
+            }
+        }
+    }
+    
+    /**
+     Tests wether the operation correctly sends the "isFinished" key value notification when used in a concurrent queue.
+     */
+    
+    func testOperationFinishesWithConcurrentQueue() {
+        let testOperation:NSOperation       = self.operationUnderTest();
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
+        let keyPath:String                  = "isFinished"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
+        
+        queue.suspended = true
+        queue.addOperation(testOperation)
+        queue.suspended = false
+        
+        self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
+            if let testError = error {
+                if (testError.domain == XCTestErrorDomain){
+                    XCTFail( "Operation did not move to the finished state within the timeout: \(error)");
+                }
+            }
+            
+            if (expectation != nil){
+                expectation = nil
+            }
+        }
+    }
+    
+    /**
+     Tests wether the operation correctly sends the "isFinished" key value notification when used in a serial queue.
+     */
+    
+    func testOperationExecutesWithSerialQueue() {
+        let testOperation:NSOperation       = self.operationUnderTest();
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
+        let keyPath:String                  = "isExecuting"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
+        
+        queue.suspended = true
+        queue.addOperation(testOperation)
+        queue.suspended = false
+        
+        self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
+            if let testError = error {
+                if (testError.domain == XCTestErrorDomain){
+                    XCTFail( "Operation did not move to the executing state within the timeout: \(error)");
+                }
+            }
+            
+            if (expectation != nil){
+                expectation = nil
+            }
+        }
+    }
+    
+    /**
+     Tests wether the operation correctly sends the "isFinished" key value notification when used in a serial queue.
+     */
+    
+    func testOperationExecutesWithConcurrentQueue() {
+        let testOperation:NSOperation       = self.operationUnderTest();
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
+        let keyPath:String                  = "isExecuting"
+        var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
+            var result = false;
+            result = observedObject.valueForKeyPath(keyPath)!.boolValue
+            return result
+        }
+        
+        queue.suspended = true
+        queue.addOperation(testOperation)
+        queue.suspended = false
+        
+        self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
+            if let testError = error {
+                if (testError.domain == XCTestErrorDomain){
+                    XCTFail( "Operation did not move to the executing state within the timeout: \(error)");
+                }
+            }
+            
+            if (expectation != nil){
+                expectation = nil
+            }
         }
     }
 }
