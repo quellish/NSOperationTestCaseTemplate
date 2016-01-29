@@ -8,7 +8,7 @@
 //  Original by Dan Zinngrabe on 6/15/15.
 //
 
-#import "NSOperationTestCase.h"
+#import "___FILEBASENAMEASIDENTIFIER___.h"
 
 @implementation ___FILEBASENAMEASIDENTIFIER___
 
