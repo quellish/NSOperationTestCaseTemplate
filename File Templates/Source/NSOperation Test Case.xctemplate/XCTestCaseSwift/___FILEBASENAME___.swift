@@ -124,6 +124,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -151,6 +152,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -179,6 +181,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(dependant)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -206,6 +209,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(dependant)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -298,6 +302,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -329,6 +334,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -360,6 +366,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
@@ -391,6 +398,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         queue.addOperation(testOperation)
         queue.suspended = false
         
+        queue.waitUntilAllOperationsAreFinished
         self.waitForExpectationsWithTimeout(self.defaultTimeout()) { error -> Void in
             if let testError = error {
                 if (testError.domain == XCTestErrorDomain){
