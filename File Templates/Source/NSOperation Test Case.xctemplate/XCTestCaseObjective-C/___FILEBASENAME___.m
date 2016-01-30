@@ -149,6 +149,7 @@
     queue           = [[self class] concurrentQueueWithName:NSStringFromSelector(_cmd)];
     testOperation   = [self operationUnderTest];
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     XCTAssertNoThrow([queue addOperation:testOperation], @"Adding operation: %@ to concurrent queue failed", testOperation);
     
 }
@@ -172,6 +173,7 @@
     [queue setSuspended:YES];
     [queue addOperation:testOperation];
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"The operation completion block did not execute within the timeout: %@", error);
@@ -198,6 +200,7 @@
     [queue setSuspended:YES];
     [queue addOperation:testOperation];
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"The operation completion block did not execute within the timeout: %@", error);
@@ -227,6 +230,7 @@
     [queue addOperation:testOperation];
     [queue addOperation:dependant];
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"The operation dependency did not execute within the timeout: %@", error);
@@ -256,6 +260,7 @@
     [queue addOperation:testOperation];
     [queue addOperation:dependant];
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"The operation dependency did not execute within the timeout: %@", error);
@@ -342,6 +347,7 @@
     [queue addOperation:testOperation];
     
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"Operation did not move to the finished state within the timeout: %@", error);
@@ -370,6 +376,7 @@
     [queue addOperation:testOperation];
     
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"Operation did not move to the finished state within the timeout: %@", error);
@@ -398,6 +405,7 @@
     [queue addOperation:testOperation];
     
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"Operation did not move to the executing state within the timeout: %@", error);
@@ -426,6 +434,7 @@
     [queue addOperation:testOperation];
     
     [queue setSuspended:NO];
+    [queue waitUntilAllOperationsAreFinished];
     [self waitForExpectationsWithTimeout:[self defaultTimeout] handler:^(NSError *error) {
         if ([[error domain] isEqualToString:XCTestErrorDomain]){
             XCTFail( @"Operation did not move to the executing state within the timeout: %@", error);
