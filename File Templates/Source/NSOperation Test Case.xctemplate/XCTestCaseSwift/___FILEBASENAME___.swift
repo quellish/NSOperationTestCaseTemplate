@@ -113,8 +113,8 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanExecuteCompletionBlockWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
-        let expectation:XCTestExpectation   = expectationWithDescription(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(#function)
+        let expectation:XCTestExpectation   = expectationWithDescription(#function)
     
         
         testOperation.completionBlock = {
@@ -141,8 +141,8 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanExecuteCompletionBlockWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
-        let expectation:XCTestExpectation   = expectationWithDescription(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(#function)
+        let expectation:XCTestExpectation   = expectationWithDescription(#function)
         
         
         testOperation.completionBlock = {
@@ -169,8 +169,8 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanExecuteDependentOperationWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
-        let expectation:XCTestExpectation   = expectationWithDescription(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(#function)
+        let expectation:XCTestExpectation   = expectationWithDescription(#function)
         let dependant:NSOperation           = NSBlockOperation { () -> Void in
             expectation.fulfill()
         }
@@ -197,8 +197,8 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanExecuteDependentOperationWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
-        let expectation:XCTestExpectation   = expectationWithDescription(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(#function)
+        let expectation:XCTestExpectation   = expectationWithDescription(#function)
         let dependant:NSOperation           = NSBlockOperation { () -> Void in
             expectation.fulfill()
         }
@@ -225,7 +225,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanCancelOperationWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(#function)
         let keyPath:String                  = "isCancelled"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
@@ -257,7 +257,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testCanCancelOperationWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(#function)
         let keyPath:String                  = "isCancelled"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
@@ -290,7 +290,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testOperationFinishesWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(#function)
         let keyPath:String                  = "isFinished"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
@@ -322,7 +322,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testOperationFinishesWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(#function)
         let keyPath:String                  = "isFinished"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
@@ -354,7 +354,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testOperationExecutesWithSerialQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.serialQueueWithName(#function)
         let keyPath:String                  = "isExecuting"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
@@ -386,7 +386,7 @@ public class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
     
     func testOperationExecutesWithConcurrentQueue() {
         let testOperation:NSOperation       = self.operationUnderTest();
-        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(__FUNCTION__)
+        let queue:NSOperationQueue          = self.dynamicType.concurrentQueueWithName(#function)
         let keyPath:String                  = "isExecuting"
         var expectation:XCTestExpectation?  = keyValueObservingExpectationForObject(testOperation, keyPath: keyPath) { (observedObject, change) -> Bool in
             var result = false;
