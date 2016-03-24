@@ -1,4 +1,5 @@
 *.swift linguist-language=Swift
 *.m linguist-language=Objective-C
 *.h linguist-language=C
-*md linguist-documentation
+*.md linguist-documentation
+File\ Templates/Source/NSOperation\ Test\ Case.xctemplate/XCTestCaseObjective-C linguist-vendored
