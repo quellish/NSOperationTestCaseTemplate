@@ -1,0 +1,4 @@
+*.swift linguist-language=Swift
+*.m linguist-language=Objective-C
+*.h linguist-language=C
+*md linguist-documentation
